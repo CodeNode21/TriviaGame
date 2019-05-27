@@ -26,6 +26,10 @@
     p{
         display: none;
     }
+    .option{
+        margin: 15px;
+        border-color: red;
+    }
 
     </style>
 </head>
@@ -41,6 +45,9 @@
         </div>
         <!-- Start button - hidden after click -->
         <div><button  id="start-button">Start</button></div>
+        <div id="results">
+
+        </div>
     </div>
 
 
@@ -52,10 +59,10 @@
 
 
     $(document).ready(function(){
-        // event
+        // event listeners
         $("#start-button").on("click", trivia.startGame);
-        $(document).on("click", "#choices", trivia.guessChecker)
-    });
+        $(document).on("click", "#choices", trivia.guessChecker);
+    })
 // trivia properties
     var trivia = {
         correct: 0,
@@ -69,7 +76,7 @@
     questions: {
         q1: "Which US state is named on the label of a Jack Daniels bottle?",
         q2: "Which state is known as the Peach state?",
-        q3: "What is the smallest U.S. state?",
+        q3: "Which is the smallest U.S. state?",
         q4: "What is the tallest mountain in the United States?",
         q5: "Which of the following states does NOT border the Great Lakes?"
     },
@@ -104,21 +111,23 @@
     },
     // displays questions and starts timer
     nextQuestion: function(){
-        trivia.timer = 10;
+        trivia.timer = 5;
+        $("#timer").text(trivia.timer);
+        // starts timer
         if(!trivia.timerOn){
-            trivia.timerId = setInterval(trivia.timer, 1000);
+            trivia.timerId = setInterval(trivia.timeRunning, 1000);
         };
+        // displays question and choices
         var questionContent = Object.values(trivia.questions)[trivia.currentSet];
         $("#questions").html(questionContent);
         var questionOptions = Object.values(trivia.choices)[trivia.currentSet];
         $.each(questionOptions, function(index, key){
             $("#choices").append($("<button class='choice-buttons'>"+key+"</button>"));
         })
-        trivia.timeRunning();
+
     },
     // sets the timer and starts running it
     timeRunning: function(){
-        $("#timer").text(trivia.timer);
         // if timer is above 0 and question set is smaller than amount of Questions run
         if(trivia.timer > -1 && trivia.currentSet < Object.keys(trivia.questions).length){
             $("#timer").text(trivia.timer);
@@ -127,8 +136,11 @@
             trivia.unanswered++;
             trivia.result = false;
             clearInterval(trivia.timerId);
+            resultId = setTimeout(trivia.triviaResult, 1000);
+            console.log(trivia.currentSet);
         }else if(trivia.currentSet === Object.keys(trivia.questions).length){
-
+            $("#results").html("<h3>Correct: "+trivia.correct + "</h3>" + "<h3>Incorrect: "+trivia.incorrect +"</h3>"+ "<h3>Unanswered: "+trivia.unanswered + "<h3> Please Play Again</h3>");
+            
         }
         
 
@@ -137,25 +149,37 @@
     guessChecker: function(){
         var resultId;
         var currentAnswer = Object.values(trivia.answers)[trivia.currentSet];
+        
         if($(this).text() === currentAnswer){
+            // logs the correct answer
             trivia.correct++;
             clearInterval(trivia.timerId);
-            resultId = setTimeout(trivia.guessResult, 1000);
+
+            resultId = setTimeout(trivia.triviaResult, 1000);
             window.alert("Correct");
         }else {
+            // logs the incorrect answer
             trivia.incorrect++;
             clearInterval(trivia.timerId);
-            resultId = setTimeout(trivia.guessResult, 1000);
+            
+            resultId = setTimeout(trivia.triviaResult, 1000);
             window.alert("incorrect");
+            console.log(currentAnswer);
+            console.log(typeof currentAnswer);
+            
         }
+        console.log(this);
     },
     // function to diplay results at completion
-    triviaResults: function(){
+    triviaResult: function(){
         trivia.currentSet++;
+        $("#choices").remove();
+        $("#results h3").remove();
         trivia.nextQuestion();
     }
-    };
-    
+};
+
+
     </script>
 </body>
 </html>
