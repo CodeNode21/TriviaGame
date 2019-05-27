@@ -34,10 +34,10 @@
         <div class="title"><h1>Trivia</h1></div>
         <div class="game">
             <!-- Display question, timer then choices stays hidden until Start is clicked-->
-            <p id="questions">Question</p>
             <p>Remaining time: </p><span id="timer"></span>
+            <p id="questions">Question</p>
             
-            <p id="choices">Choices</p>
+            <p id="choices"></p>
         </div>
         <!-- Start button - hidden after click -->
         <div><button  id="start-button">Start</button></div>
@@ -49,9 +49,12 @@
     integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
     crossorigin="anonymous"></script>
     <script type="text/javascript">
+
+
     $(document).ready(function(){
+        // event
         $("#start-button").on("click", trivia.startGame);
-        $(document).on("click", "", trivia.guessChecker)
+        $(document).on("click", "#choices", trivia.guessChecker)
     });
 // trivia properties
     var trivia = {
@@ -86,13 +89,73 @@
     },
         
     startGame: function(){
-        $("p").fadeIn("slow");
+        console.log(trivia.correct, trivia.incorrect, trivia.unanswered, trivia.currentSet);
+        trivia.correct = 0;
+        trivia.incorrect = 0;
+        trivia.unanswered = 0;
+        trivia.currentSet = 0;
+        clearInterval(trivia.timerId);
+        // hides start button and displays questions and timer
         $("#start-button").hide();
+        $("p").fadeIn("slow");
+
+        trivia.nextQuestion();
+
     },
-    guessChecker: function(){
+    // displays questions and starts timer
+    nextQuestion: function(){
+        trivia.timer = 10;
+        if(!trivia.timerOn){
+            trivia.timerId = setInterval(trivia.timer, 1000);
+        };
+        var questionContent = Object.values(trivia.questions)[trivia.currentSet];
+        $("#questions").html(questionContent);
+        var questionOptions = Object.values(trivia.choices)[trivia.currentSet];
+        $.each(questionOptions, function(index, key){
+            $("#choices").append($("<button class='choice-buttons'>"+key+"</button>"));
+        })
+        trivia.timeRunning();
+    },
+    // sets the timer and starts running it
+    timeRunning: function(){
+        $("#timer").text(trivia.timer);
+        // if timer is above 0 and question set is smaller than amount of Questions run
+        if(trivia.timer > -1 && trivia.currentSet < Object.keys(trivia.questions).length){
+            $("#timer").text(trivia.timer);
+            trivia.timer--;
+        }else if(trivia.timer === -1){
+            trivia.unanswered++;
+            trivia.result = false;
+            clearInterval(trivia.timerId);
+        }else if(trivia.currentSet === Object.keys(trivia.questions).length){
+
+        }
         
+
     },
+    // function to evaluate option clicked
+    guessChecker: function(){
+        var resultId;
+        var currentAnswer = Object.values(trivia.answers)[trivia.currentSet];
+        if($(this).text() === currentAnswer){
+            trivia.correct++;
+            clearInterval(trivia.timerId);
+            resultId = setTimeout(trivia.guessResult, 1000);
+            window.alert("Correct");
+        }else {
+            trivia.incorrect++;
+            clearInterval(trivia.timerId);
+            resultId = setTimeout(trivia.guessResult, 1000);
+            window.alert("incorrect");
+        }
+    },
+    // function to diplay results at completion
+    triviaResults: function(){
+        trivia.currentSet++;
+        trivia.nextQuestion();
+    }
     };
+    
     </script>
 </body>
 </html>
