@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Trivia Draft</title>
+    <link rel="stylesheet" type="text/css" href="assets/css/reset.css">
+    <link rel="stylesheet" type="text/css" href="assets/css/style.css">
+    <style>
+    body{
+        line-height: 1.5;
+        margin-top: 50px;
+        font-size: 20px;
+
+    }
+    .container{
+        text-align: center;
+        width: 500px;
+        height: 500px;
+        margin: auto;
+    }
+    .game{
+        padding: 15px;
+    }
+    p{
+        display: none;
+    }
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="title"><h1>Trivia</h1></div>
+        <div class="game">
+            <!-- Display question, timer then choices stays hidden until Start is clicked-->
+            <p id="questions">Question</p>
+            <p>Remaining time: </p><span id="timer"></span>
+            
+            <p id="choices">Choices</p>
+        </div>
+        <!-- Start button - hidden after click -->
+        <div><button  id="start-button">Start</button></div>
+    </div>
+
+
+     <script
+    src="https://code.jquery.com/jquery-3.4.1.js"
+    integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
+    crossorigin="anonymous"></script>
+    <script type="text/javascript">
+    $(document).ready(function(){
+        $("#start-button").on("click", trivia.startGame);
+        $(document).on("click", "", trivia.guessChecker)
+    });
+// trivia properties
+    var trivia = {
+        correct: 0,
+        incorrect: 0,
+        unanswered: 0,
+        currentSet: 0,
+        timer: 20,
+        timerOn: false,
+        timerId: '',
+
+    questions: {
+        q1: "Which US state is named on the label of a Jack Daniels bottle?",
+        q2: "Which state is known as the Peach state?",
+        q3: "What is the smallest U.S. state?",
+        q4: "What is the tallest mountain in the United States?",
+        q5: "Which of the following states does NOT border the Great Lakes?"
+    },
+    choices: {
+        q1: ["New York", "Alabama", "Tennesse", "Arkansas"],
+        q2: ["Florida", "Georgia", "California", "Mississippi"],
+        q3: ["Connecticut", "Delaware", "Vermont", "Rhode Island"],
+        q4: ["Mount McKinley", "Mount Hood", "Mount Ranier", "Mount Rushmore"],
+        q5: ["Ohio", "Michigan", "Iowa", "Illinois"]
+    },
+    answers: {
+        q1: "Tennesse",
+        q2: "Georgia",
+        q3: "Rhode Island",
+        q4: "Mount McKinley",
+        q5: "Illinois"
+    },
+        
+    startGame: function(){
+        $("p").fadeIn("slow");
+        $("#start-button").hide();
+    },
+    guessChecker: function(){
+        
+    },
+    };
+    </script>
+</body>
+</html>
