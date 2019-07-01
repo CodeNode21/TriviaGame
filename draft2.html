@@ -95,7 +95,6 @@
     },
         
     startGame: function(){
-        console.log(trivia.correct, trivia.incorrect, trivia.unanswered, trivia.currentSet);
         trivia.correct = 0;
         trivia.incorrect = 0;
         trivia.unanswered = 0;
@@ -120,10 +119,12 @@
         var questionContent = Object.values(trivia.questions)[trivia.currentSet];
         $("#questions").html(questionContent);
         var questionOptions = Object.values(trivia.choices)[trivia.currentSet];
+        var questionAnswer = Object.values(trivia.answers)[trivia.currentSet]
         $.each(questionOptions, function(index, key){
             $("#choices").append($("<button class='choice-buttons'>"+key+"</button>"));
-        })
-
+        });
+        console.log(questionOptions);
+        console.log(questionAnswer);
     },
     // sets the timer and starts running it
     timeRunning: function(){
@@ -164,18 +165,16 @@
             resultId = setTimeout(trivia.triviaResult, 1000);
             window.alert("incorrect");
             console.log(currentAnswer);
-            console.log(typeof currentAnswer);
             
         }
         $("#choices").empty();
-        nextQuestion();
-        console.log(this);
+
     },
     // function to diplay results at completion
     triviaResult: function(){
         trivia.currentSet++;
-        $("#choices").remove();
-        $("#results h3").remove();
+        $("#choices").empty();
+        $("#results h3").empty();
         trivia.nextQuestion();
     }
 };

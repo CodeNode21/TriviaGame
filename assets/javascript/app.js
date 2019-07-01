@@ -49,7 +49,14 @@ function nextQuestion(){
 	if(!trivia.timerOn){
 		trivia.timerId = setIterval(trivia.timeRunning, 1000);
 	}
-}
+	var questionContent = Object.values(trivia.question)[trivia.currentSet];
+	$("#questions").html(questionContent);
+	var questionOptions = Object.values(trivia.choices)[trivia.currentSet];
+	
+	$.each(questionOptions, function(index, key){
+		$("#choices").append($("<button class='choice-buttons'>"+key+"</button>"));
+	})
+},
 
 
 function timer()
