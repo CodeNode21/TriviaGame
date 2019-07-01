@@ -5,6 +5,9 @@
 //start over option available
 //questions have 4 choices, 1 correct answer
 
+$(document).ready(function(){
+	$("#start-button").on("click", trivia.startGame);
+})
 var correct = 0;
 var incorrect = 0;
 
@@ -33,7 +36,21 @@ answers: {
 },
 
 function startGame(){
-	
+	$("#choices").empty();
+	$("#start-button").hide();
+	$("p").fadeIn("slow");
+	clearInterval(trivia.timerId);
+	trivia.nextQuestion();
+
+},
+function nextQuestion(){
+	trivia.timer = 5;
+	$("#timer").text(trivia.timer);
+	if(!trivia.timerOn){
+		trivia.timerId = setIterval(trivia.timeRunning, 1000);
+	}
+}
+
 
 function timer()
 

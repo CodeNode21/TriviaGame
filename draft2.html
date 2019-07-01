@@ -12,7 +12,6 @@
         line-height: 1.5;
         margin-top: 50px;
         font-size: 20px;
-
     }
     .container{
         text-align: center;
@@ -168,6 +167,8 @@
             console.log(typeof currentAnswer);
             
         }
+        $("#choices").empty();
+        nextQuestion();
         console.log(this);
     },
     // function to diplay results at completion
