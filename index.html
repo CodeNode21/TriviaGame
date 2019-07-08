@@ -60,6 +60,7 @@
     $(document).ready(function(){
         // event listeners
         $("#start-button").on("click", trivia.startGame);
+        $("#tryAgain").on("click", trivia.startGame);
         $(document).on("click", ".choice-buttons", trivia.guessChecker);
     })
 // trivia properties
@@ -122,8 +123,7 @@
         $.each(questionOptions, function(index, key){
             $("#choices").append($("<button class='choice-buttons'>"+key+"</button>"));
         });
-        console.log(questionOptions);
-        console.log(questionAnswer);
+        trivia.timeRunning();
     },
     // sets the timer and starts running it
     timeRunning: function(){
@@ -138,7 +138,10 @@
             resultId = setTimeout(trivia.triviaResult, 1000);
             console.log(trivia.currentSet);
         }else if(trivia.currentSet === Object.keys(trivia.questions).length){
-            $("#results").html("<h3>Correct: "+trivia.correct + "</h3>" + "<h3>Incorrect: "+trivia.incorrect +"</h3>"+ "<h3>Unanswered: "+ trivia.unanswered + "<button> Try Again</button>");
+            trivia.timer = !trivia.timerOn;
+            $("#results").html("<h3>Correct: "+trivia.correct + "</h3>" + "<h3>Incorrect: "+trivia.incorrect +"</h3>"+ "<h3>Unanswered: "+ trivia.unanswered + "<button id='tryAgain'> Try Again</button>");
+            console.log(trivia.timer);
+            console.log(trivia.timerOn);
         }
     },
     // function to evaluate option clicked
@@ -159,7 +162,6 @@
             console.log("Incorrect!");
         };
         $("#choices").empty();
-        console.log(this)
         console.log(currentAnswer);
     },
     // function to diplay results at completion
