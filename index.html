@@ -60,7 +60,7 @@
     $(document).ready(function(){
         // event listeners
         $("#start-button").on("click", trivia.startGame);
-        $(document).on("click", "#choices", trivia.guessChecker);
+        $(document).on("click", ".choice-buttons", trivia.guessChecker);
     })
 // trivia properties
     var trivia = {
@@ -71,6 +71,7 @@
         timer: 20,
         timerOn: false,
         timerId: '',
+        resultId: '',
 
     questions: {
         q1: "Which US state is named on the label of a Jack Daniels bottle?",
@@ -103,9 +104,7 @@
         // hides start button and displays questions and timer
         $("#start-button").hide();
         $("p").fadeIn("slow");
-
         trivia.nextQuestion();
-
     },
     // displays questions and starts timer
     nextQuestion: function(){
@@ -139,36 +138,29 @@
             resultId = setTimeout(trivia.triviaResult, 1000);
             console.log(trivia.currentSet);
         }else if(trivia.currentSet === Object.keys(trivia.questions).length){
-            $("#results").html("<h3>Correct: "+trivia.correct + "</h3>" + "<h3>Incorrect: "+trivia.incorrect +"</h3>"+ "<h3>Unanswered: "+trivia.unanswered + "<h3> Please Play Again</h3>");
-            
+            $("#results").html("<h3>Correct: "+trivia.correct + "</h3>" + "<h3>Incorrect: "+trivia.incorrect +"</h3>"+ "<h3>Unanswered: "+ trivia.unanswered + "<button> Try Again</button>");
         }
-        
-
     },
     // function to evaluate option clicked
     guessChecker: function(){
         var resultId;
         var currentAnswer = Object.values(trivia.answers)[trivia.currentSet];
-        
         if($(this).text() === currentAnswer){
             // logs the correct answer
             trivia.correct++;
             clearInterval(trivia.timerId);
-
             resultId = setTimeout(trivia.triviaResult, 1000);
-            window.alert("Correct");
+            console.log("Correct!");
         }else {
             // logs the incorrect answer
             trivia.incorrect++;
             clearInterval(trivia.timerId);
-            
             resultId = setTimeout(trivia.triviaResult, 1000);
-            window.alert("incorrect");
-            console.log(currentAnswer);
-            
-        }
+            console.log("Incorrect!");
+        };
         $("#choices").empty();
-
+        console.log(this)
+        console.log(currentAnswer);
     },
     // function to diplay results at completion
     triviaResult: function(){
@@ -176,7 +168,8 @@
         $("#choices").empty();
         $("#results h3").empty();
         trivia.nextQuestion();
-    }
+    },
+
 };
 
 
