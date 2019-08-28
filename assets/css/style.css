@@ -1,0 +1,21 @@
+body{
+    line-height: 1.5;
+    margin-top: 50px;
+    font-size: 20px;
+}
+.container{
+    text-align: center;
+    width: 500px;
+    height: 500px;
+    margin: auto;
+}
+.game{
+    padding: 15px;
+}
+p{
+    display: none;
+}
+.option{
+    margin: 15px;
+    border-color: red;
+}
