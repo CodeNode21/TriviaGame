@@ -34,6 +34,9 @@ p{
     border-color: #61045f;
 
 }
+#tryagain{
+    margin:15px;
+}
 .game{
     background-color: ivory;
     border: 3px;
