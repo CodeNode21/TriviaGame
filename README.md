@@ -8,5 +8,4 @@ Instructions:
  Simply choose the correct answer to the question being asked.
  Your score will be tallied at the conclusion of all the questions. 
 
-Screenshot and maybe video:
- (Coming Soon)
+![Trivia Game](TriviaGIF.gif)
