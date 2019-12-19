@@ -1,6 +1,7 @@
 # US States Trivia Game
 
-![Link](https://codenode21.github.io/TriviaGame/)
+
+[Link](https://codenode21.github.io/TriviaGame/)
 
 Flex your trivia skills. Category is US State. 
 
