@@ -3,7 +3,7 @@
 
 [Link](https://codenode21.github.io/TriviaGame/)
 
-Flex your trivia skills. Category is US State. 
+Flex your trivia skills on US States. 
 
 
 Instructions:
