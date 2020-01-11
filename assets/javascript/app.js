@@ -1,16 +1,10 @@
-//press start to start the trivia
-//user answers questions before timer runs down
-//user can only choose one answer
-//at end of game correct and incorrect answers are displayed
-//start over option available
-//questions have 4 choices, 1 correct answer
 $(document).ready(function(){
-	// event listeners
+
 	$("#start-button").on("click", trivia.startGame);
 	$("#tryAgain").on("click", trivia.startGame);
 	$(document).on("click", ".choice-buttons", trivia.guessChecker);
 })
-// trivia properties
+
 var trivia = {
 	correct: 0,
 	incorrect: 0,
@@ -49,20 +43,18 @@ startGame: function(){
 	trivia.unanswered = 0;
 	trivia.currentSet = 0;
 	clearInterval(trivia.timerId);
-	// hides start button and displays questions and timer
 	$("#start-button").hide();
 	$("p").fadeIn("slow");
 	trivia.nextQuestion();
 },
-// displays questions and starts timer
+
 nextQuestion: function(){
 	trivia.timer = 5;
 	$("#timer").text(trivia.timer);
-	// starts timer
 	if(!trivia.timerOn){
 		trivia.timerId = setInterval(trivia.timeRunning, 1000);
 	};
-	// displays question and choices
+
 	var questionContent = Object.values(trivia.questions)[trivia.currentSet];
 	$("#questions").html(questionContent);
 	var questionOptions = Object.values(trivia.choices)[trivia.currentSet];
@@ -72,10 +64,8 @@ nextQuestion: function(){
 	});
 	trivia.timeRunning();
 },
-// sets the timer and starts running it
 timeRunning: function(){
-	// if timer is above 0 and question set is smaller than amount of Questions run
-	if(trivia.timer > -1 && trivia.currentSet < Object.keys(trivia.questions).length){
+		if(trivia.timer > -1 && trivia.currentSet < Object.keys(trivia.questions).length){
 		$("#timer").text(trivia.timer);
 		trivia.timer--;
 	}else if(trivia.timer === -1){
@@ -91,18 +81,15 @@ timeRunning: function(){
 		console.log(trivia.timerOn);
 	}
 },
-// function to evaluate option clicked
 guessChecker: function(){
 	var resultId;
 	var currentAnswer = Object.values(trivia.answers)[trivia.currentSet];
 	if($(this).text() === currentAnswer){
-		// logs the correct answer
 		trivia.correct++;
 		clearInterval(trivia.timerId);
 		resultId = setTimeout(trivia.triviaResult, 1000);
 		console.log("Correct!");
 	}else {
-		// logs the incorrect answer
 		trivia.incorrect++;
 		clearInterval(trivia.timerId);
 		resultId = setTimeout(trivia.triviaResult, 1000);
@@ -111,7 +98,6 @@ guessChecker: function(){
 	$("#choices").empty();
 	console.log(currentAnswer);
 },
-// function to diplay results at completion
 triviaResult: function(){
 	trivia.currentSet++;
 	$("#choices").empty();
@@ -120,13 +106,3 @@ triviaResult: function(){
 },
 
 };
-
-
-// press start (
-// timer starts running
-// question 1 and choices diplayed
-// listen for correct choice or timer running out
-// register result, move on to next question
-// question 2 and choices displayed
-// listen for correct choice or timer running out
-// register result, move on to next question

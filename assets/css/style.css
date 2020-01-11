@@ -45,8 +45,8 @@ p{
 
 }
 button{
-    background-color: #EB3349;  /* fallback for old browsers */
-    background: linear-gradient(to bottom, #DD2476, #FF512F); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    background-color: #EB3349;  
+    background: linear-gradient(to bottom, #DD2476, #FF512F); 
     text-shadow: 3px 2px 1px #9daef5;  
     box-shadow: 6px 5px 24px #666666;
     border-radius: 28px;
@@ -61,7 +61,7 @@ button{
 }
 button:hover {
     background-color: rgb(186, 6, 0);
-    background: linear-gradient(to right, #DD2476, rgba(255, 123, 47, 0.575)); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    background: linear-gradient(to right, #DD2476, rgba(255, 123, 47, 0.575)); 
     transition-duration: 0.4s;
 }
 
