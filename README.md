@@ -1,9 +1,9 @@
 # US States Trivia Game
 
+Flex your trivia skills on US States. 
 
 [Link](https://codenode21.github.io/TriviaGame/)
 
-Flex your trivia skills on US States. 
 
 
 ### Instructions:
